@@ -34,6 +34,19 @@ Read the numbered documents in order; each builds only on the ones before it.
 
 `pnpm check` runs the typecheck, the tests and the build.
 
+## 本地验证
+
+Run these from the repository root; each one is a script in `package.json`, so no extra tooling is needed. Install dependencies once with `pnpm install`.
+
+| Command | Runs | Purpose |
+| --- | --- | --- |
+| `pnpm typecheck` | `tsc --noEmit` | Report type errors without writing files |
+| `pnpm test` | `vitest run` over `tests/**/*.spec.{ts,tsx}` | Run the test suite once |
+| `pnpm build` | `tsdown` | Emit the bundle in `lib/` that DSH loads |
+| `pnpm check` | `pnpm typecheck && pnpm test && pnpm build` | Run all three in that order; the gate before a pull request |
+
+There is no `dev` or watch script: DSH loads the built output, so re-run `pnpm build` after changing source.
+
 ## License
 
 [MIT](LICENSE)
